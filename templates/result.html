@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>검색 결과</title>
+</head>
+<body>
+    <h2>🔍 검색</h2>
+    <form action="{{ url_for('search') }}" method="POST">
+        <input type="text" name="keyword" placeholder="검색어 입력" required>
+        <button type="submit">검색</button>
+    </form>
+
+    <h2>📦 DB에서 불러온 검색 결과</h2>
+    <ul>
+        {% for keyword, title, link in results %}
+        <li>
+            <strong>{{ keyword }}</strong> - <a href="{{ link }}" target="_blank">{{ title }}</a>
+        </li>
+        {% endfor %}
+    </ul>
+    <form action="{{ url_for('search') }}" method="POST" style="display: inline;">
+        <input type="text" name="keyword" placeholder="검색어 입력" required>
+        <button type="submit">검색</button>
+    </form>
+    
+    <!-- ✅ DB 초기화 버튼 -->
+    <form action="{{ url_for('reset_db') }}" method="POST" style="display: inline; margin-left: 10px;">
+        <button type="submit" onclick="return confirm('정말로 DB를 초기화할까요?')">DB 초기화</button>
+    </form>
+    
+    <div>
+        페이지:
+        {% for i in range(1, total_pages + 1) %}
+            {% if i == page %}
+                <strong>[{{ i }}]</strong>
+            {% else %}
+                <a href="{{ url_for('search') }}?page={{ i }}">[{{ i }}]</a>
+            {% endif %}
+        {% endfor %}
+    </div>
+</body>
+</html>
