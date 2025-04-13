@@ -12,7 +12,7 @@ page = context.new_page()
 def login():
     page.goto("http://192.168.20.79/#/login?redirect=%2Fproject")
     page.fill('input[name="username"]', "eogjs95@nextchip.com")
-    page.fill('input[name="password"]', "choi1022!")
+    page.fill('input[name="password"]', "")
     page.click('text=로그인')
     page.wait_for_timeout(3000)
 
